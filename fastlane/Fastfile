@@ -64,19 +64,29 @@ platform :ios do
       SharedValues::MATCH_PROVISIONING_PROFILE_MAPPING
     ]
 
-    update_code_signing_settings(
-      path: "#{GITHUB_WORKSPACE}/LoopFollow.xcodeproj",
-      profile_name: mapping["com.#{TEAMID}.LoopFollow"],
-      code_sign_identity: "iPhone Distribution",
-      targets: ["LoopFollow"]
-    )
+update_code_signing_settings(
+use_automatic_signing: false,
+path: "#{GITHUB_WORKSPACE}/LoopFollow.xcodeproj",
+team_id: TEAMID,
+bundle_identifier: "com.#{TEAMID}.LoopFollow",
+profile_name: mapping["com.#{TEAMID}.LoopFollow"],
+code_sign_identity: "iPhone Distribution",
+sdk: "iphoneos*",
+build_configurations: ["Release"],
+targets: ["LoopFollow"]
+)
 
     update_code_signing_settings(
-      path: "#{GITHUB_WORKSPACE}/LoopFollow.xcodeproj",    
-      profile_name: mapping["com.#{TEAMID}.LoopFollow.LoopFollowLAExtension"],
-      code_sign_identity: "iPhone Distribution",
-      targets: ["LoopFollowLAExtension"]
-    )
+use_automatic_signing: false,
+path: "#{GITHUB_WORKSPACE}/LoopFollow.xcodeproj",
+team_id: TEAMID,
+bundle_identifier: "com.#{TEAMID}.LoopFollow.LoopFollowLAExtension",
+profile_name: mapping["com.#{TEAMID}.LoopFollow.LoopFollowLAExtension"],
+code_sign_identity: "iPhone Distribution",
+sdk: "iphoneos*",
+build_configurations: ["Release"],
+targets: ["LoopFollowLAExtensionExtension"]
+)
 
     gym(
       export_method: "app-store",
